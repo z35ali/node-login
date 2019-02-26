@@ -31,6 +31,8 @@ router.post('/register', (req, res) => {
     }
 
     if (errors.length > 0) {
+
+
         res.render('register', {
             errors,
             name,
@@ -39,8 +41,11 @@ router.post('/register', (req, res) => {
             password2
         });
     } else {
-        User.findOne({ email: email }).then(user => {
+
+        User.findOne({ email }).then(user => {
             if (user) {
+
+
                 errors.push({ msg: 'Email already exists' });
                 res.render('register', {
                     errors,
@@ -54,6 +59,7 @@ router.post('/register', (req, res) => {
                     name,
                     email,
                     password
+
                 });
 
                 bcrypt.genSalt(10, (err, salt) => {
